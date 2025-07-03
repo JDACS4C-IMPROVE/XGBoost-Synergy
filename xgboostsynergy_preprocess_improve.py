@@ -43,7 +43,7 @@ def run(params):
     
     print("Find intersection of training data.")
     response_train = frm.get_y_data_with_features(response_train, omics, params['canc_col_name'])
-    response_train = frm.get_y_data_with_features(response_train, drugs, params['drug_col_name'])
+    response_train = frm.get_y_data_with_features(response_train, drugs, [params['drug_1_col_name'], params['drug_2_col_name']])
     omics_train = frm.get_features_in_y_data(omics, response_train, params['canc_col_name'])
     drug1_train = frm.get_features_in_y_data(drugs, response_train, params['drug_1_col_name'])
     drug2_train = frm.get_features_in_y_data(drugs, response_train, params['drug_2_col_name'])
