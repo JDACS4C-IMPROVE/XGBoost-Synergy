@@ -84,8 +84,8 @@ def run(params):
         print(f"Merge {stage} data")
         y_df_cols = response_stage.columns.tolist()
         data = response_stage.merge(omics_stage, on=params["canc_col_name"], how="inner")
-        data = data.merge(drugs_stage, on=params["drug_1_col_name"], how="inner")
-        data = data.merge(drugs_stage, on=params["drug_2_col_name"], how="inner")
+        data = data.merge(drugs_stage, left_on=params["drug_1_col_name"], right_on=params['drug_col_name'], how="inner")
+        data = data.merge(drugs_stage, left_on=params["drug_2_col_name"], right_on=params['drug_col_name'], how="inner")
         data = data.sample(frac=1.0).reset_index(drop=True) # shuffle
 
         print(f"Save {stage} data")
