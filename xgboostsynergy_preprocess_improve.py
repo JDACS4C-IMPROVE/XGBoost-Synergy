@@ -48,6 +48,8 @@ def run(params):
     print(response_train.shape)
     omics_train = frm.get_features_in_y_data(omics, response_train, params['canc_col_name'])
     print(omics_train.shape)
+    print("omics: ", omics.index)
+    print("response: ", response_train[params['canc_col_name']])
     drug1_train = frm.get_features_in_y_data(drugs, response_train, params['drug_1_col_name'])
     drug2_train = frm.get_features_in_y_data(drugs, response_train, params['drug_2_col_name'])
     drugs_train = pd.concat([drug1_train, drug2_train]).drop_duplicates()
