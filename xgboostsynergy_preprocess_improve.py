@@ -46,13 +46,10 @@ def run(params):
     response_train = frm.get_y_data_with_features(response_train, drugs, params['drug_1_col_name'])
     response_train = frm.get_y_data_with_features(response_train, drugs, params['drug_2_col_name'])
     omics_train = frm.get_features_in_y_data(omics, response_train, params['canc_col_name'])
-    drug1_train = frm.get_features_in_y_data(drugs, response_train, params['drug_1_col_name'])
-    drug2_train = frm.get_features_in_y_data(drugs, response_train, params['drug_2_col_name'])
-    drugs_train = pd.concat([drug1_train, drug2_train]).drop_duplicates()
 
     print("Determine transformations.")
     frm.determine_transform(omics_train, 'omics_transform', params['cell_transcriptomic_transform'], params['output_dir'])
-    frm.determine_transform(drugs_train, 'drugs_transform', params['drug_mordred_transform'], params['output_dir'])
+
 
     # ------------------------------------------------------
     # [Req] Construct ML data for every stage (train, val, test)
@@ -69,7 +66,8 @@ def run(params):
                                 benchmark_dir=params['input_dir'], 
                                 y_data_file=params['y_data_file'])
         response_stage = frm.get_y_data_with_features(response_stage, omics, params['canc_col_name'])
-        response_stage = frm.get_y_data_with_features(response_stage, drugs, params['drug_col_name'])
+        response_stage = frm.get_y_data_with_features(response_stage, drugs, params['drug_1_col_name'])
+        response_stage = frm.get_y_data_with_features(response_stage, drugs, params['drug_2_col_name'])
         omics_stage = frm.get_features_in_y_data(omics, response_stage, params['canc_col_name'])
         drug1_stage = frm.get_features_in_y_data(drugs, response_stage, params['drug_1_col_name'])
         drug2_stage = frm.get_features_in_y_data(drugs, response_stage, params['drug_2_col_name'])
