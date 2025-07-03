@@ -72,6 +72,7 @@ def run(params):
         response_stage = frm.get_y_data_with_features(response_stage, omics, params['canc_col_name'])
         response_stage = frm.get_y_data_with_features(response_stage, drugs, params['drug_1_col_name'])
         response_stage = frm.get_y_data_with_features(response_stage, drugs, params['drug_2_col_name'])
+        print("response_stage:", response_stage)
         omics_stage = frm.get_features_in_y_data(omics, response_stage, params['canc_col_name'])
         drug1_stage = frm.get_features_in_y_data(drugs, response_stage, params['drug_1_col_name'])
         drug2_stage = frm.get_features_in_y_data(drugs, response_stage, params['drug_2_col_name'])
@@ -86,6 +87,7 @@ def run(params):
         data = response_stage.merge(omics_stage, on=params["canc_col_name"], how="inner")
         data = data.merge(drugs_stage, left_on=params["drug_1_col_name"], right_on=params['drug_col_name'], how="inner")
         data = data.merge(drugs_stage, left_on=params["drug_2_col_name"], right_on=params['drug_col_name'], how="inner")
+        print("data:", data)
         data = data.sample(frac=1.0).reset_index(drop=True) # shuffle
 
         print(f"Save {stage} data")
