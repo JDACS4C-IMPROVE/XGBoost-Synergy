@@ -43,11 +43,15 @@ def run(params):
     
     print("Find intersection of training data.")
     response_train = frm.get_y_data_with_features(response_train, omics, params['canc_col_name'])
+    print(response_train.shape)
     response_train = frm.get_y_data_with_features(response_train, drugs, [params['drug_1_col_name'], params['drug_2_col_name']])
+    print(response_train.shape)
     omics_train = frm.get_features_in_y_data(omics, response_train, params['canc_col_name'])
+    print(omics_train.shape)
     drug1_train = frm.get_features_in_y_data(drugs, response_train, params['drug_1_col_name'])
     drug2_train = frm.get_features_in_y_data(drugs, response_train, params['drug_2_col_name'])
     drugs_train = pd.concat([drug1_train, drug2_train]).drop_duplicates()
+    print(drugs_train.shape)
 
     print("Determine transformations.")
     frm.determine_transform(omics_train, 'omics_transform', params['cell_transcriptomic_transform'], params['output_dir'])
