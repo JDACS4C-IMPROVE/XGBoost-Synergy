@@ -88,6 +88,7 @@ def run(params):
         data = data.merge(drugs_stage, left_on=params["drug_1_col_name"], right_on=params['drug_col_name'], how="inner")
         data = data.merge(drugs_stage, left_on=params["drug_2_col_name"], right_on=params['drug_col_name'], how="inner")
         print("data:", data)
+        print("nas:", data[params['y_col_name']].isna().sum())
         data = data.sample(frac=1.0).reset_index(drop=True) # shuffle
 
         print(f"Save {stage} data")
